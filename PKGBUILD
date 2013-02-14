@@ -5,7 +5,7 @@
 
 pkgname=gnupg
 pkgver=2.0.19
-pkgrel=5
+pkgrel=6
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 url='http://www.gnupg.org/'
 license=('GPL')
@@ -31,9 +31,18 @@ replaces=('gnupg2')
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
+
 	patch -p1 -i ../protect-tool-env.patch # FS#31900
 	patch -p1 -i ../valid-keyblock-packet.patch
-	./configure --prefix=/usr --libexecdir=/usr/lib/gnupg
+
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--libexecdir=/usr/lib/gnupg \
+		--enable-maintainer-mode \
+		--enable-symcryptrun \
+		--enable-gpgtar \
+
 	make
 }
 
