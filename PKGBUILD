@@ -5,7 +5,7 @@
 
 pkgname=gnupg
 pkgver=2.0.20
-pkgrel=1
+pkgrel=2
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 url='http://www.gnupg.org/'
 license=('GPL')
@@ -36,6 +36,7 @@ build() {
 	./configure \
 		--prefix=/usr \
 		--sysconfdir=/etc \
+		--sbindir=/usr/bin \
 		--libexecdir=/usr/lib/gnupg \
 		--enable-maintainer-mode \
 		--enable-symcryptrun \
