@@ -5,7 +5,7 @@
 
 pkgname=gnupg
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 url='http://www.gnupg.org/'
 license=('GPL')
@@ -23,7 +23,7 @@ install=install
 
 conflicts=('dirmngr' 'gnupg2')
 provides=('dirmngr' "gnupg2=${pkgver}")
-replaces=('dirmngr' 'dirmngr')
+replaces=('dirmngr' 'gnupg2')
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
