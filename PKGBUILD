@@ -42,7 +42,6 @@ build() {
 		--libexecdir=/usr/lib/gnupg \
 		--enable-maintainer-mode \
 		--enable-symcryptrun \
-		--enable-gpgtar \
 
 	make
 }
