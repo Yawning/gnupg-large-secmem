@@ -1,3 +1,4 @@
+# Maintainer: Yawning Angel <yawning[at]schwanenlied[dot]me>
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
@@ -6,7 +7,8 @@
 # Contributor: Andreas Radke <andyrtr@archlinux.org>
 # Contributor: Judd Vinet <jvinet@zeroflux.org>
 
-pkgname=gnupg
+pkgname=gnupg-large-secmem
+_pkgname=gnupg
 pkgver=2.4.3
 pkgrel=2
 pkgdesc='Complete and free implementation of the OpenPGP standard'
@@ -46,19 +48,19 @@ checkdepends=(openssh)
 optdepends=(
   'pcsclite: for using scdaemon not with the gnupg internal card driver'
 )
-install=$pkgname.install
+install=$_pkgname.install
 source=(
-  https://gnupg.org/ftp/gcrypt/$pkgname/$pkgname-$pkgver.tar.bz2{,.sig}
+  https://gnupg.org/ftp/gcrypt/${_pkgname}/${_pkgname}-$pkgver.tar.bz2{,.sig}
   dirmngr.{service,socket}
   gpg-agent{,-{browser,extra,ssh}}.socket
   gpg-agent.service
   keyboxd.{service,socket}
-  $pkgname-2.4-avoid_beta_warning.patch  # do not emit beta warnings (due to misbehaving build system)
-  $pkgname-2.4-drop_import_clean.patch  # do not potentially remove components on certificates during import
-  $pkgname-2.4-revert_default_rfc4880bis.patch  # v5 is incompatible with other implementations and v6
-  $pkgname-2.4-keep-systemd-support.patch
-  $pkgname-2.4-keyboxd-systemd-support.patch
-  $pkgname-2.4.3-fix_tpm2d_keytotpm_handling.patch
+  ${_pkgname}-2.4-avoid_beta_warning.patch  # do not emit beta warnings (due to misbehaving build system)
+  ${_pkgname}-2.4-drop_import_clean.patch  # do not potentially remove components on certificates during import
+  ${_pkgname}-2.4-revert_default_rfc4880bis.patch  # v5 is incompatible with other implementations and v6
+  ${_pkgname}-2.4-keep-systemd-support.patch
+  ${_pkgname}-2.4-keyboxd-systemd-support.patch
+  ${_pkgname}-2.4.3-fix_tpm2d_keytotpm_handling.patch
 )
 sha256sums=('a271ae6d732f6f4d80c258ad9ee88dd9c94c8fdc33c3e45328c4d7c126bd219d'
             'SKIP'
@@ -102,7 +104,7 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd "${_pkgname}-${pkgver}"
 
   local src
   for src in "${source[@]}"; do
@@ -126,15 +128,16 @@ build() {
     --prefix=/usr
     --sbindir=/usr/bin
     --sysconfdir=/etc
+    --enable-large-secmem
   )
 
-  cd $pkgname-$pkgver
+  cd "${_pkgname}-${pkgver}"
   ./configure "${configure_options[@]}"
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd "${_pkgname}-${pkgver}"
   make check
 }
 
@@ -143,7 +146,7 @@ package() {
   local socket_target_dir="$pkgdir/usr/lib/systemd/user/sockets.target.wants/"
   local unit
 
-  cd $pkgname-$pkgver
+  cd "${_pkgname}-${pkgver}"
   make DESTDIR="$pkgdir" install
   ln -s gpg "$pkgdir"/usr/bin/gpg2
   ln -s gpgv "$pkgdir"/usr/bin/gpgv2
