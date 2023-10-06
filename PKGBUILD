@@ -85,14 +85,16 @@ prepare() {
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --sbindir=/usr/bin \
-    --libexecdir=/usr/lib/gnupg \
-    --enable-maintainer-mode \
+  local configure_options=(
+    --enable-maintainer-mode
+    --libexecdir=/usr/lib/gnupg
+    --prefix=/usr
+    --sbindir=/usr/bin
+    --sysconfdir=/etc
+  )
 
+  cd $pkgname-$pkgver
+  ./configure "${configure_options[@]}"
   make
 }
 
