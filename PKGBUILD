@@ -10,7 +10,7 @@ pkgname=gnupg
 pkgver=2.2.41
 pkgrel=2
 pkgdesc='Complete and free implementation of the OpenPGP standard'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.gnupg.org/'
 license=(
   BSD-2-Clause
@@ -24,32 +24,32 @@ license=(
   Unicode-TOU
 )
 depends=(
-  'bzip2' 'libbz2.so'
-  'glibc'
-  'gnutls'
-  'libgcrypt'
-  'libgpg-error'
-  'libksba'
-  'libassuan' 'libassuan.so'
-  'libldap'
-  'libusb'
-  'npth' 'libnpth.so'
-  'pinentry'
-  'readline' 'libreadline.so'
-  'sh'
-  'sqlite'
-  'zlib'
+  bzip2 libbz2.so
+  glibc
+  gnutls
+  libgcrypt
+  libgpg-error
+  libksba
+  libassuan libassuan.so
+  libldap
+  libusb
+  npth libnpth.so
+  pinentry
+  readline libreadline.so
+  sh
+  sqlite
+  zlib
 )
-makedepends=('pcsclite')
-checkdepends=('openssh')
+makedepends=(pcsclite)
+checkdepends=(openssh)
 optdepends=(
   'pcsclite: for using scdaemon not with the gnupg internal card driver'
 )
 install=$pkgname.install
 source=(
-  "https://gnupg.org/ftp/gcrypt/${pkgname}/${pkgname}-${pkgver}.tar.bz2"{,.sig}
-  'drop-import-clean.patch'
-  'avoid-beta-warning.patch'
+  https://gnupg.org/ftp/gcrypt/$pkgname/$pkgname-$pkgver.tar.bz2{,.sig}
+  drop-import-clean.patch
+  avoid-beta-warning.patch
 )
 sha256sums=('13f3291007a5e8546fcb7bc0c6610ce44aaa9b3995059d4f8145ba09fd5be3e1'
             'SKIP'
@@ -67,7 +67,7 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
 
   local src
   for src in "${source[@]}"; do
@@ -85,7 +85,7 @@ prepare() {
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
@@ -97,7 +97,7 @@ build() {
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
   make check
 }
 
@@ -106,13 +106,13 @@ package() {
   local socket_target_dir="$pkgdir/usr/lib/systemd/user/sockets.target.wants/"
   local unit
 
-  cd "${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
-  ln -s gpg "${pkgdir}"/usr/bin/gpg2
-  ln -s gpgv "${pkgdir}"/usr/bin/gpgv2
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+  ln -s gpg "$pkgdir"/usr/bin/gpg2
+  ln -s gpgv "$pkgdir"/usr/bin/gpgv2
 
-  install -Dm 644 doc/examples/systemd-user/*.* -t "${pkgdir}/usr/lib/systemd/user"
-  install -Dm 644 COPYING.{CC0,other} -t "${pkgdir}/usr/share/licenses/$pkgname/"
+  install -Dm 644 doc/examples/systemd-user/*.* -t "$pkgdir/usr/lib/systemd/user"
+  install -Dm 644 COPYING.{CC0,other} -t "$pkgdir/usr/share/licenses/$pkgname/"
 
   install -vdm 755 "$socket_target_dir"
   for unit in "${units[@]}"; do
