@@ -12,7 +12,17 @@ pkgrel=2
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 arch=('x86_64')
 url='https://www.gnupg.org/'
-license=(BSD custom custom:CC0 GPL2 GPL3 LGPL3 LGPL2.1 MIT)
+license=(
+  BSD-2-Clause
+  BSD-3-Clause
+  CC0-1.0
+  GPL-2.0-or-later
+  GPL-3.0-or-later
+  LGPL-2.1-or-later
+  'LGPL-3.0-or-later OR GPL-2.0-or-later'
+  MIT
+  Unicode-TOU
+)
 depends=(
   'bzip2' 'libbz2.so'
   'glibc'
