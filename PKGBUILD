@@ -55,6 +55,7 @@ source=(
   $pkgname-2.4-avoid_beta_warning.patch  # do not emit beta warnings (due to misbehaving build system)
   $pkgname-2.4-drop_import_clean.patch  # do not potentially remove components on certificates during import
   $pkgname-2.4-revert_default_rfc4880bis.patch  # v5 is incompatible with other implementations and v6
+  $pkgname-2.4-keep-systemd-support.patch
 )
 sha256sums=('a271ae6d732f6f4d80c258ad9ee88dd9c94c8fdc33c3e45328c4d7c126bd219d'
             'SKIP'
@@ -67,7 +68,8 @@ sha256sums=('a271ae6d732f6f4d80c258ad9ee88dd9c94c8fdc33c3e45328c4d7c126bd219d'
             '8ea489a57edb0db9394bf2d6c0ec62205f881bb54efb919e4870209c7db01aa7'
             '243c3a79295519b3931f9d846cf2af5caa064a78de812ee336dc786c1567b4d0'
             '6ade15b536c50a88efc2d9dc958433b0ccfaf2908025b7672753e6bfce51c3c6'
-            'ef2267eecd9eb59bbbbdb97d55cbfe10236b4979a125c6683a840830bc202905')
+            'ef2267eecd9eb59bbbbdb97d55cbfe10236b4979a125c6683a840830bc202905'
+            '677ca409e8ece61e64a94102a2b71ec119941b5ae0f0ed4f1c4f2c0c2bdd158a')
 b2sums=('b7f4f5e548ec6dfc89cf8792f507ee8642e8500692998cf8d2edc9f5d8002904d24a714b9caffabee6094707c4595e0f54197535135622a7a32aa772f5818f28'
         'SKIP'
         '7a3af856305eb4b00929aaf029dd4e5c84376df4f30add76976b9b058addf6fc4d8c39335fc83d11493ea9d8a40f0510dbac8572b99a8c8b9b3a4eca8e585774'
@@ -79,7 +81,8 @@ b2sums=('b7f4f5e548ec6dfc89cf8792f507ee8642e8500692998cf8d2edc9f5d8002904d24a714
         'ad71d7fab2a92a8da454c34884b5724e94adc0925a7f97f062fb7b78ed3ec87e5babb6383e755c943afd16bf61789ba83455dc2baf82ce248c1c4622ff87e364'
         '168855b598714abb27e01e52e0ed1e1a01ab14ffb2ee09d759308375359cd28c0a9f96c6b9dee0a2cc5713aec8ea831858d59f56a0a126bca3e1401b078fc7ab'
         '0b9546c102724f1dbb90ad3c45307eed3491a5ea79940eba1184e6d466f399f279a23e73bac6b0bb0d662aa4599d0a4a0f331b0df3fe7fa6e7590c1074fc2ed1'
-        '009c1a935021c987cd3c15581250090edfcd1a6dd30622db2701295f047384e03ba97590ca6993d410e81a6fd7c274468cd58a1904d51f432d572df39ee178d6')
+        '009c1a935021c987cd3c15581250090edfcd1a6dd30622db2701295f047384e03ba97590ca6993d410e81a6fd7c274468cd58a1904d51f432d572df39ee178d6'
+        '2801ecc6db1f6fe33a8a83756b272d9f363509c5804c501045002e9ac509fc22bcb16dfd107bcbe870756748d2ebc2dbdc3b7c0f74c8b7f52207553ca5e0145b')
 validpgpkeys=(
   '5B80C5754298F0CB55D8ED6ABCEF7E294B092E28' # Andre Heinecke (Release Signing Key)
   '6DAA6E64A76D2840571B4902528897B826403ADA' # Werner Koch (dist signing 2020)
